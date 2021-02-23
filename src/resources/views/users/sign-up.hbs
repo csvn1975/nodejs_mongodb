@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{{!-- <base href="{{__dirname}}" target="_blank"> --}}
+	<link rel="icon" type="image/png" href="{{__dirname}}/img/icons/map-marker.png"/>
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/css/util.css">
+	<link rel="stylesheet" type="text/css" href="{{__dirname}}/css/main.css">
+</head>
+<body>
+	{{>header}}
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url({{__dirname}}/img/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						Sign Up
+					</span>
+				</div>
+
+				<form method='post' action='/users/create' 
+				     enctype="multipart/form-data"
+					class="login100-form validate-form">
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Username</span>
+						<input class="input100" type="text" name="username" placeholder="Enter username">
+						<span class="focus-input100"></span>
+					
+					</div>
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="email" name="email" placeholder="Enter email">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-26">
+						<span class="label-input100">Photo</span>
+
+						<input class="input100" type="file" name="avatar">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" placeholder="Enter password">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Senden
+						</button>
+					</div>
+				</form>
+			{{#if message}}	
+				<div class="alert alert-sm alert-success mr-5 ml-5">
+					<button type="button" 
+					class="close" data-dismiss="alert" 
+					aria-hidden="true">&times;</button>
+					{{message}}
+				</div>
+			{{/if}}
+			</div>
+
+		</div>
+	</div>
+
+	<script src="{{__dirname}}/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="{{__dirname}}/vendor/animsition/js/animsition.min.js"></script>
+	<script src="{{__dirname}}/vendor/bootstrap/js/popper.js"></script>
+	<script src="{{__dirname}}/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{__dirname}}/vendor/select2/select2.min.js"></script>
+	<script src="{{__dirname}}/vendor/daterangepicker/moment.min.js"></script>
+	<script src="{{__dirname}}/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="{{__dirname}}/vendor/countdowntime/countdowntime.js"></script>
+	<script src="{{__dirname}}/js/main.js"></script>
+
+</body>
+</html>

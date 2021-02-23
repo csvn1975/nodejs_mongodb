@@ -1,0 +1,16 @@
+<section class="file-upload mt-5 ml-5">
+    <form method='post' action='/components/upload' 
+    enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Name</label>
+        <input type="text" name="name" class="form-control-file" id="name">
+      </div>
+      <div class="form-group">
+        <label for="avatar">Bild upload hochladen</label>
+        <input type="file" name="avatar" id="avatar">
+      </div>
+        <button type="submit" class="btn btn-sm btn-primary pl-5 pr-5">
+          Upload
+        </button>
+    </form>
+</section>

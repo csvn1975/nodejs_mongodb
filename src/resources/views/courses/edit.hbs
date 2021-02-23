@@ -1,0 +1,28 @@
+
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-lg-3 mt-5">
+  <h3 class="text-center">Editing Course</h3>
+  
+<form method='POST' action="/courses/{{data._id}}/update?_method=PUT" >
+  
+  <div class="form-group">
+     <input type="text" value="{{data.albumId}}" name="albumId" class="form-control" id="albumId" placeholder="album-id">
+  </div>
+
+  <div class="form-group">
+    <input type="text" value="{{data.id}}" name="id" class="form-control" id="id" placeholder="id">
+  </div>
+
+  <div class="form-group">
+    <textarea  name="title" class="form-control" id="title" placeholder="course-title">{{data.title}}</textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Speichern</button>
+</form>
+</div>
+
+  {{#if done }}
+    <div class="alert alert-success mt-2">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>Update</strong> {{data.title}} Updated successfully
+    </div>
+  {{/if}}

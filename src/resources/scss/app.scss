@@ -1,0 +1,79 @@
+@import './Abstrast/variables';
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+h1 {
+    background-color: $color-bg-primary;
+    margin-bottom: 10px;
+}
+
+.card-img-top {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trash-icon{
+    font-size: 24px;
+    color:red;
+}
+
+.course-icon{
+    font-size: 18px;
+    &__delete {
+      color:red;
+    }
+    
+    &__edit{
+        color:green;
+    }
+
+
+}
+
+.trash-icon-undo{
+  font-size: 24px;
+}
+
+.course-link,
+.course-link:active,
+.course-link:visited,
+.course-link:hover
+{
+    text-decoration: none;
+    color:black;
+}
+
+.course__sort {
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    margin-bottom: 5px;
+    padding-left: 2px;
+    
+    &--action{
+        width : 250px;
+    }
+
+    & label{
+        // color:white;
+        margin:0;
+    }
+
+}
+
+
+.file-upload{
+    width: 40%;
+    margin: 50px auto !important
+}

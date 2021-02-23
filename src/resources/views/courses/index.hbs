@@ -1,0 +1,166 @@
+<div class="container-fluid">
+
+  <div class="heading">
+    <a href="/courses/trash" class="course-link">
+      <p><i class="trash-icon fas fa-trash mr-2" aria-hidden="true"></i>Trash ({{counter}})</p>
+    </a>
+    
+    <h3 class="text-center mt-5 mb-5">{{title}}</h3>
+  </div>
+
+  <form method="POST" action="/courses/handle" id="containerform" name="containerform">
+   {{!--  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">   --}}        
+    <div class="course__sort">
+      <input type="checkbox" id="checkbox-all" class="mr-1">
+      <label class="mr-5" for="checkbox-all">alle auswählen</label>
+      <select name="status" id="input" class="form-control-sm action course__sort--action">
+        <option value="">-- bitte wählen --</option>
+        <option value="DELETE">delete</option>
+        <option value="NONE">weitere...</option>
+      </select>
+      <button class="btn btn-sm btn-success ml-2 pr-3 pl-3 button-confirm" disabled>OK</button>
+   {{!--  </div>
+    </div> --}}
+    </div>
+  
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Title {{{sortTable 'title' course_sort}}}</th>
+            <th scope="col">Datum {{{sortTable 'createdAt' course_sort}}}</th>
+            <th scope="col">Updated {{{sortTable 'updateddAt' course_sort}}}</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        {{#each data}}
+        <tbody>
+          <tr>
+            <th id="checkbox-item-">
+              <input type="checkbox" class="checkbox-item" id="checkbox-item-{{sum @index 1}}" name="checkbox-courses[]"
+                value="{{this._id}}"> </th>
+            <td>{{sum @index 1}}</td>
+            <td>{{this.title}}</td>
+            <td>
+              {{dateFormat this.createdAt "DD.MM.YYYY hh:mm:ss"}}
+            </td>
+            <td>
+              {{dateFormat this.updatedAt "DD.MM.YYYY hh:mm:ss"}}
+            </td>
+            <td>
+              <a href="/courses/{{this._id}}/edit">
+                <i class="course-icon__edit fas fa-edit mr-2" aria-hidden="true"></i></a>
+              <a href="" data-toggle="modal" data-target="#modal-delete" data-id="{{this._id}}">
+                <i class="course-icon__delete fas fa-trash mr-2" aria-hidden="true"></i></a>
+            </td>
+
+          </tr>
+        </tbody>
+        {{/each}}
+         </table>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Course delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">cancel</button>
+        <button type="button" id="btn_delete" class="btn btn-sm btn-danger" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="delete-form"></form>
+
+<script>
+
+  //id wird über Modal-form abgeholt #modal-delete
+  // on('show.bs.modal'...)
+
+  document.addEventListener('DOMContentLoaded', function () {
+  
+  
+    var course_id;
+
+    var deleteForm = document.forms['delete-form'];
+    var containerForm = $('form[name=containerform]');
+
+    var btnDelete = document.getElementById('btn_delete');
+    var isAbleSubmit = false;
+
+
+    // von Boostraps, ein ID in der Modal-Form hinzufügen und holen
+    $('#modal-delete').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      course_id = button.data('id');
+    })
+
+    btnDelete.onclick = function () {
+      if (course_id) {
+        deleteForm.action = "/courses/" + course_id + "/delete?_method=DELETE";
+        deleteForm.submit();
+      } else
+        containerForm.submit()
+    }
+
+    /** ==============================
+     * Multi checkbox 
+     * input checkbox-name (für submit!!!) von checkbox ist ein Array, da MUSS mit ---[]
+     * ACHTUNG: arrow-function kein this
+    */
+
+    var checkboxAll = $('#checkbox-all');
+    var checkboxItems = $('input[name="checkbox-courses[]"]');
+    var btnActionConfirm = $('.button-confirm');
+    var inputAction = $('.action');
+
+
+    function checkAllCheckBox() {
+      for (var checkboxItem of checkboxItems) {
+        if (!checkboxItem.checked)
+          return false
+      }
+      return true
+    }
+
+    checkboxItems.on('change', function () {
+      var isAllChecked = checkAllCheckBox();
+      checkboxAll.prop('checked', isAllChecked);
+
+    })
+
+
+    //render Button OK disable/enable
+    inputAction.change(function () {
+      var isActiveAble = !$(this).val();
+      btnActionConfirm.prop('disabled', isActiveAble);
+    })
+
+    //  checkboxAll click
+    checkboxAll.change(function () {
+      var checkedStatus = $(this).prop('checked');
+      checkboxItems.prop('checked', checkedStatus)
+    })
+  })
+
+</script>

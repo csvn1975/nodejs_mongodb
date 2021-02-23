@@ -1,0 +1,87 @@
+<div class="container-fluid">
+<div class="heading">
+  <a href="/courses" class="course-link">
+    
+    <p><i class="trash-icon-undo fas fa-undo mr-2" aria-hidden="true"></i> Listing of courses</p>
+  </a>
+  <h3 class="text-center mt-5 mb-5">{{title}}</h3>
+</div>
+
+<div class="row">
+  {{#each data}}
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mb-5">
+    <div class="card">
+      <img class="card-img-top" src="/img/f8_logo.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">"{{this.title}}"</p>
+        <div class="d-flex mr-auto">
+          <a href="#" data-toggle="modal" data-id="{{this._id}}"
+            class="btn btn-sm btn-danger btn-restore mr-2">Restore</a>
+
+          <a href="#" data-toggle="modal" data-id="{{this._id}}" data-target="#modal-delete"
+            class="btn btn-sm btn-danger btn-force-delete">Permanently delete</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Course delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">cancel</button>
+        <button type="button" id="btn_delete" class="btn btn-sm btn-danger" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="delete-form"></form>
+
+<form method="POST" name="restore-form"></form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var restoreForm = document.forms['restore-form'];
+    var deleteForm = document.forms['delete-form'];
+    var btnRestores = $('.btn-restore');
+    var btnDelete = document.getElementById('btn_delete');
+    var course_id;
+
+    // Even von Jquery
+    btnRestores.click(function (e) {
+      e.preventDefault();
+      restoreForm.action = "/courses/" + $(this).data('id') + "/restore?_method=PATCH";
+      restoreForm.submit();
+    })
+
+    // von Boostraps, ein ID in der Modal-Form hinzufügen und holen
+    $('#modal-delete').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      course_id = button.data('id');
+    })
+
+    btnDelete.onclick = function () {
+      deleteForm.action = "/courses/" + course_id + "/destroy?_method=DELETE";
+      deleteForm.submit();
+    };
+
+  })
+</script>

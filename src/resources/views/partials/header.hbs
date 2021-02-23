@@ -1,0 +1,60 @@
+{{!-- currentUser is res.locals in currentUserMiddleware 
+ --}}
+<nav class="navbar navbar-expand-lg navbar-light text-light bg-dark ">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <span> NodeJS-Express/handlebars & MongoDB </span>
+
+    <div class="menuwrapp ml-auto d-flex justify-content-center">
+      <ul class="navbar-nav  text-light">
+        <a class="nav-link text-light" href="#" id="navbarDropdown">
+          <i class="fa fa-cart-arrow-down align-items-center text-danger" aria-hidden="true"></i>
+        </a>
+      </ul>
+
+      <ul class="navbar-nav  text-light">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+            {{currentUser.username}}
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            {{#if currentUser.login}}
+                <a href="/courses/list" class="dropdown-item">Liste</a>
+                <a href="/courses/create" class="dropdown-item">Create</a>
+                <div class="dropdown-divider"></div>
+                <a href="/auth/logout" class="dropdown-item" id="user-logout">Log out</a>
+            {{else}}
+                <a href="/courses" class="dropdown-item">Liste</a>
+                <div class="dropdown-divider"></div>
+                <a href="/auth" class="dropdown-item" id="user-login">Log in</a>
+                <a href="/auth/sign_up" class="dropdown-item" id="user-register">Sign up</a>
+            {{/if}}
+
+          </div>
+        </li>
+      </ul>
+
+      {{!-- TUTORIALS --}}
+      <ul class="navbar-nav  text-light">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tutorials
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/components/upload">Upload File</a>
+            <a class="dropdown-item" href="/components/email">Send email</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="https://www.npmjs.com/package/express-handlebars">handlebars</a>
+            <a class="dropdown-item" href="https://expressjs.com/de/">express</a>
+            <a class="dropdown-item"
+              href="https://getbootstrap.com/docs/4.0/getting-started/introduction/">bottstrap</a>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
