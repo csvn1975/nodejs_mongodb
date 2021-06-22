@@ -23,6 +23,8 @@ function route(app) {
     app.use(sessionIdMiddlewate); // create sessionId
     app.use(userMiddleware); // set value to res.locals.currentUser 
 
+    app.use('/', courseRoutes);
+
     app.use('/news', newRoutes);
     
     app.use('/courses', courseRoutes);
